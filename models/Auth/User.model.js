@@ -11,6 +11,13 @@ const PostSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    // this represents the role the user has (basic vs contributing vs admin)
+    Roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role",
+      },
+    ],
     Movies: {
       type: Array,
       required: false,
