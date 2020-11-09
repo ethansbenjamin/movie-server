@@ -26,6 +26,8 @@ app.use(express.urlencoded({ extended: true }), express.json());
 
 // import routes for movies
 const movieRoutes = require("./routes/movies");
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 app.use("/movies", movieRoutes);
 
 // ROUTES
@@ -38,6 +40,7 @@ db.mongoose
   .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => {
     console.log("Connected to MongoDB!");
