@@ -26,3 +26,6 @@ module.exports = function (app) {
     controller.adminBoard
   );
 };
+
+// TODO: search users
+// TODO: get a user with id
