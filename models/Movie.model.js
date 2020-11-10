@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// TODO: change the model param names maybe? also, convert that JSON data to movie model
 const PostSchema = mongoose.Schema({
   Title: {
     type: String,

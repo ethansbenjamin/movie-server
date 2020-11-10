@@ -9,8 +9,8 @@ const Role = db.role;
 
 // we have the ability to create routes in a simple way
 // we are able to make requests from local host ->
-// Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell browsers to give a web application running at one origin, access to selected resources from a different origin.Jul 4, 2020
-var corsOptions = { origin: "http://localhost:8080" };
+// Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell browsers to give a web application running at one origin, access to selected resources from a different origin
+var corsOptions = { origin: "http://localhost:8081" };
 
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }), express.json());
@@ -25,14 +25,20 @@ app.use(express.urlencoded({ extended: true }), express.json());
 // CRUD
 
 // import routes for movies
-const movieRoutes = require("./routes/movies");
-require('./routes/auth.routes')(app);
-require('./routes/user.routes')(app);
+const movieRoutes = require("./routes/movie.routes");
+require("./routes/auth.routes")(app);
+require("./routes/user.routes")(app);
 app.use("/movies", movieRoutes);
 
 // ROUTES
 app.get("/", (request, response) => {
   response.send("We are on the home");
+});
+// listen to server on this port
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
 
 // connect to Database
@@ -85,5 +91,3 @@ function initial() {
     }
   });
 }
-// listen to server on this port
-app.listen(8080);
