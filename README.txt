@@ -1,12 +1,30 @@
-This is the code for my express server. 
-I have stored all the movie data from the large JSON file into MongoDB. 
-The express server queries data from the DB and serves JSON outputs.
+This is the code for my REST JSON API.
+The server queries data from the DB and serves JSON outputs.
 
-to install, please run npm install in the /backend directory. 
-to run the server, run npm start: this will execute nodemon app.js
-please create a dotenv file and paste this variable in there
-DB_CONNECTION=mongodb+srv://admin:Jg5NIAOsNmfISdqR@cluster.sziyr.mongodb.net/cluster?retryWrites=true&w=majority
-or -> hardcode this connection string into app.js
+to install, please run npm install
+to run the server, run npm start: this will execute nodemon server.js
+
+
+Sign Up and Login:
+
+For authentication, this server uses JWT tokens. To signup for an account make a JSON body with a username, email, and password. 
+/api/auth/signup
+after signing up for an account you can sign in. you will then receive an access token to put in the header of postman.
+The key should be x-access-token, and the value is the token itself. 
+/api/auth/signin
+this route takes the username and password, and then returns the user's credentials. 
+{
+"username":"ethansb",
+"password":"password1"
+}
+The auth was inspired by this tutorial: https://bezkoder.com/node-js-mongodb-auth-jwt/
+I have 3 types of roles in the database: user, moderator (contributing user), and admin. 
+There is middleware that checks each token for role type before sending responses. If a token does not have access to a certain resource then it will respond as invalid access. 
+
+
+
+
+
 
 Movies:
 
@@ -25,11 +43,6 @@ we can add any optional fields with query parameters.
 ?Rated=
 ?Director=
 ?Language=
-
-
-http://localhost:8080/movies/?Director=Christopher+Nolan would return all Christopher Nolan Movies in the Database
-http://localhost:8080/movies/?Director=Christopher+Nolan&Year=2010 would return all Christopher Nolan Movies in 2010 (inception)
-http://localhost:8080/movies/?Title=Interstellar would return Interstellar
 
 
 to delete a movie provide the valid movie id and make a delete request with the movie id
@@ -83,10 +96,33 @@ the http://localhost:8080/movies/ adding the movie id.
 }
 
 
-after that, make a get request with the same url and see the new data
+there is also the get /movies/search/:searchQuery route. I implemented MongoDB fuzzy searching, which searches the database for records that match the query string given after.
+in the MongoDB atlas configuration, I made sure the search indexes were using title, year, genre, and plot. This was one of the more difficult parts to build
 
-I used the mongoimport tool to get the movies.json file into the movie cluster of my mongodb instance. I have stored the variables needed
-in the dotenv so the configurations there should allow for access to the backend. 
+you can also post to the /movies/review/:movieId route, which takes a review and adds it to a movies reviews array. 
+{
+“review": "this movie is great",
 
-The person and user models have been defined in my ./models folder, however I have not yet defined routes for them.
+“score": 8,
+
+“username": "ethansb",
+
+“title": "Great movie, would totally watch again."
+
+}
+
+There is also a Users routes,
+
+With these routes, we can manipulate the users collection in the database. We can search users, get users by id, and post reviews to a users account. 
+{
+“review": "this movie is great",
+
+“score": 8,
+
+“username": "ethan",
+
+“title": "Great movie, would totally watch again."
+}
+try posting that review to users/review/:userId with an access token! 
+
 
