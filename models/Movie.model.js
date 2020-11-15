@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-// TODO: change the model param names maybe? also, convert that JSON data to movie model
-const PostSchema = mongoose.Schema({
+const MovieSchema = new Schema({
   Title: {
     type: String,
     required: true,
@@ -12,6 +11,10 @@ const PostSchema = mongoose.Schema({
   },
   Year: {
     type: String,
+    required: true,
+  },
+  Reviews: {
+    type: Array,
     required: true,
   },
   Genre: {
@@ -64,4 +67,5 @@ const PostSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Movies", PostSchema);
+
+module.exports = model("Movies", MovieSchema);

@@ -27,5 +27,3 @@ module.exports = function (app) {
   );
 };
 
-// TODO: search users
-// TODO: get a user with id

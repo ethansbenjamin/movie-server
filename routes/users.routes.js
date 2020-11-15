@@ -6,7 +6,7 @@ const User = require("../models/Auth/User.model");
 
 // we can delete and update these Movies using a parameter
 
-// gets a movie with a specific id
+// gets a user with a specific id
 router.get("/:user", async (request, response) => {
   const id = request.params.user;
   try {
@@ -42,38 +42,29 @@ router.get("/", async (request, response) => {
   }
 });
 
-// // delete the Movie
-// router.delete("/:movieId", async (request, response) => {
-//   try {
-//     const deletedMovie = await Movie.remove({ _id: request.params.movieId });
-//     response.json(deletedMovie);
-//   } catch (error) {
-//     response.json({ message: error });
-//   }
-// });
+// adding a review to the user. 
+router.put("/review/:userId", async (request, response) => {
+  let review = {};
+  for (var body in request.body) {
+    console.log(body, request.body[body]);
+    if (body !== "") {
+      review[body] = decodeURIComponent(request.body[body]);
+    }
+  }
+  console.log(review);
+  try {
+    const updatedUser = await User.updateOne(
+      // the document to update
+      { _id: request.params.userId },
+      //   update the information with JSON provided
+      { $push: { reviews: review } }
+    );
+    // send the updated Movie back
+    response.json(updatedUser);
+  } catch (error) {
+    response.json({ message: error });
+  }
+});
 
-// // update a Movie
-// router.patch("/:movieId", async (request, response) => {
-//   let moviePatch = {};
-//     for (var body in request.body) {
-//       console.log(body, request.body[body]);
-//       if (body !== "") {
-//         moviePatch[body] = decodeURIComponent(request.body[body]);
-//       }
-//     }
-//     console.log(moviePatch)
-//   try {
-//     const updatedMovie = await Movie.updateOne(
-//       { _id: request.params.movieId },
-//       //   update the information with JSON provided
-//       { $set: moviePatch }
-//     );
-//     // send the updated Movie back
-//     response.json(updatedMovie);
-//   } catch (error) {
-//     response.json({ message: error });
-//   }
-// });
 
-// export the router of this file
 module.exports = router;
