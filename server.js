@@ -26,9 +26,11 @@ app.use(express.urlencoded({ extended: true }), express.json());
 
 // import routes for movies
 const movieRoutes = require("./routes/movie.routes");
+const usersRoutes = require("./routes/users.routes");
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 app.use("/movies", movieRoutes);
+app.use("/users", usersRoutes);
 
 // ROUTES
 app.get("/", (request, response) => {
@@ -55,6 +57,8 @@ db.mongoose
   .catch((error) => {
     console.error("Connection Errors", error);
   });
+
+
 // we use this function to create the roles in the database
 function initial() {
   Role.estimatedDocumentCount((err, count) => {

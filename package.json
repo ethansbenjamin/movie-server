@@ -4,7 +4,7 @@
   "description": "interact with mongodb database with express",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon server.js"
   },
   "author": "Ethan Benjamin",
   "license": "ISC",
