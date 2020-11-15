@@ -17,6 +17,15 @@ this route takes the username and password, and then returns the user's credenti
 "username":"ethansb",
 "password":"password1"
 }
+
+{
+  "username":"moderator",
+  "password":"password1"
+}
+{
+  "username":"admin",
+  "password":"password1:
+}
 The auth was inspired by this tutorial: https://bezkoder.com/node-js-mongodb-auth-jwt/
 I have 3 types of roles in the database: user, moderator (contributing user), and admin. 
 There is middleware that checks each token for role type before sending responses. If a token does not have access to a certain resource then it will respond as invalid access. 
@@ -125,4 +134,5 @@ With these routes, we can manipulate the users collection in the database. We ca
 }
 try posting that review to users/review/:userId with an access token! 
 
-
+you can also post that review to a movie id with an access token!
+try it with /movies/review/:movieId.
