@@ -15,6 +15,6 @@ router.get("/search/:searchQuery", usersController.searchUsers);
 router.get("/", usersController.getAllUsers);
 
 // adding a review to the user.
-router.put("/review/:userId", usersController.addReview);
+router.put("/review/:userId",[authJwt.verifyToken], usersController.addReview);
 
 module.exports = router;
