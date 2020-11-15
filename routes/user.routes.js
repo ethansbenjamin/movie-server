@@ -1,6 +1,7 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
+//these were initial tests for the JWT token access
 module.exports = function (app) {
   app.use(function (req, res, next) {
     res.header(
@@ -26,4 +27,3 @@ module.exports = function (app) {
     controller.adminBoard
   );
 };
-

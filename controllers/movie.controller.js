@@ -73,6 +73,22 @@ exports.deleteMovie = (request, response) => {
     .catch((error) => response.status(500).json({ message: "error " + error }));
 };
 
+exports.getMovies = (request, response) => {
+  console.log(request.query);
+  // dynamically create a movie query
+  let movieQuery = {};
+  for (var param in request.query) {
+    console.log(param, request.query[param]);
+    if (param !== "") {
+      movieQuery[param] = decodeURIComponent(request.query[param]);
+    }
+  }
+  // limit to 20 movies returned from Database
+  Movie.find(movieQuery)
+    .limit(20)
+    .then((user) => response.status(200).json(user))
+    .catch((error) => response.status(500).send({ message: "error" + error }));
+};
 exports.updateMovie = (request, response) => {
   const id = request.params.movieId;
   let moviePatch = {};
@@ -108,5 +124,4 @@ exports.addReview = (request, response) => {
   )
     .then((review) => response.status(200).json(review))
     .catch((error) => response.status(500).json({ message: "error " + error }));
-  
 };
