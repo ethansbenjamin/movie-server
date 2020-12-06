@@ -3,7 +3,7 @@ const router = express.Router();
 const movieController = require("../controllers/movie.controller");
 const { authJwt } = require("../middleware");
 
-// we can delete and update these Movies using a parameter
+// we can search and view movies using these params
 router.get("/:movieId", movieController.getMovie);
 router.get("/search/:searchQuery", movieController.searchMovies);
 router.get("/", movieController.getMovies);

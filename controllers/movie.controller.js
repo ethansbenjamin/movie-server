@@ -18,6 +18,7 @@ exports.getMovie = (request, response) => {
 
 exports.searchMovies = (request, response) => {
   const search = request.params.searchQuery;
+
   console.log("searching " + search);
 
   // Movie is the model, find: method on mongoose. returns all the Movies with no params
@@ -29,7 +30,7 @@ exports.searchMovies = (request, response) => {
       },
     },
     {
-      $limit: 20,
+      $limit: 100,
     },
   ])
     .then((movies) => {
@@ -85,7 +86,7 @@ exports.getMovies = (request, response) => {
   }
   // limit to 20 movies returned from Database
   Movie.find(movieQuery)
-    .limit(20)
+    .limit(40)
     .then((user) => response.status(200).json(user))
     .catch((error) => response.status(500).send({ message: "error" + error }));
 };
