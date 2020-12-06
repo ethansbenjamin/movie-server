@@ -10,7 +10,7 @@ const Role = db.role;
 // we have the ability to create routes in a simple way
 // we are able to make requests from local host ->
 // Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell browsers to give a web application running at one origin, access to selected resources from a different origin
-var corsOptions = { origin: "http://localhost:8081" };
+var corsOptions = { origin: "http://localhost:3000" };
 
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }), express.json());
