@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: true }), express.json());
 const movieRoutes = require("./routes/movie.routes");
 const usersRoutes = require("./routes/users.routes");
 require("./routes/auth.routes")(app);
-require("./routes/user.routes")(app);
 app.use("/movies", movieRoutes);
 app.use("/users", usersRoutes);
 
